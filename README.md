@@ -72,6 +72,16 @@ If you want to build with MSVC, use [msvc.mk](msvc.mk).
 ```
 
 
+## Dependent libraries
+
+- [TermUtil](https://github.com/koturn/TermUtil)
+
+#### MSVC only
+
+- [getopt clone](https://github.com/koturn/getopt)
+- [msvcdbg](https://github.com/koturn/msvcdbg)
+
+
 ## LICENSE
 
 This software is released under the MIT License, see [LICENSE](LICENSE).
