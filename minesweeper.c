@@ -31,7 +31,7 @@
 
 #define UNCHECKED_MASK  ((unsigned char) 0x80)
 #define FLAG_MASK       ((unsigned char) 0x40)
-#define BOMB            ((unsigned char) 0x3f)
+#define MINE            ((unsigned char) 0x3f)
 
 #define SWAP(type, a, b) \
   do { \
@@ -331,7 +331,7 @@ run_interactive(Board *board)
       } else {
         flag_panel(board, y, x);
       }
-      if (board->data[y * board->_n_col + x] == BOMB) {
+      if (board->data[y * board->_n_col + x] == MINE) {
         break;
       }
     } while (!(is_sweeped = check_sweeped(board)));
@@ -397,7 +397,7 @@ run_cursor_mode(Board *board)
           exit(EXIT_SUCCESS);
           break;
       }
-      if (board->data[y * board->_n_col + x] == BOMB) {
+      if (board->data[y * board->_n_col + x] == MINE) {
         break;
       }
     } while (!(is_sweeped = check_sweeped(board)));
@@ -443,7 +443,7 @@ init_board(Board *board)
   memset(board->data, 0, (size_t) ((board->n_row + 2) * (board->n_col + 2)));
   /* Set mines */
   for (i = 0; i < board->n_mine; i++) {
-    board->data[i] = BOMB;
+    board->data[i] = MINE;
   }
   /* Fishe- Yates shuffle */
   for (i = board->n_row * board->n_col - 1; i > 0; i--) {
@@ -458,24 +458,24 @@ init_board(Board *board)
   /* Set labels which indicate number of bombs */
   for (y = 1; y <= board->n_row; y++) {
     for (x = 1; x <= board->n_col; x++) {
-      if (board->data[y * board->_n_col + x] == BOMB) {
-        if (board->data[(y - 1) * board->_n_col + (x - 1)] != BOMB)
+      if (board->data[y * board->_n_col + x] == MINE) {
+        if (board->data[(y - 1) * board->_n_col + (x - 1)] != MINE)
           board->data[(y - 1) * board->_n_col + (x - 1)]++;
-        if (board->data[(y - 1) * board->_n_col + x] != BOMB)
+        if (board->data[(y - 1) * board->_n_col + x] != MINE)
           board->data[(y - 1) * board->_n_col + x]++;
-        if (board->data[(y - 1) * board->_n_col + (x + 1)] != BOMB)
+        if (board->data[(y - 1) * board->_n_col + (x + 1)] != MINE)
           board->data[(y - 1) * board->_n_col + (x + 1)]++;
 
-        if (board->data[y * board->_n_col + (x - 1)] != BOMB)
+        if (board->data[y * board->_n_col + (x - 1)] != MINE)
           board->data[y * board->_n_col + (x - 1)]++;
-        if (board->data[y * board->_n_col + (x + 1)] != BOMB)
+        if (board->data[y * board->_n_col + (x + 1)] != MINE)
           board->data[y * board->_n_col + (x + 1)]++;
 
-        if (board->data[(y + 1) * board->_n_col + (x - 1)] != BOMB)
+        if (board->data[(y + 1) * board->_n_col + (x - 1)] != MINE)
           board->data[(y + 1) * board->_n_col + (x - 1)]++;
-        if (board->data[(y + 1) * board->_n_col + x] != BOMB)
+        if (board->data[(y + 1) * board->_n_col + x] != MINE)
           board->data[(y + 1) * board->_n_col + x]++;
-        if (board->data[(y + 1) * board->_n_col + (x + 1)] != BOMB)
+        if (board->data[(y + 1) * board->_n_col + (x + 1)] != MINE)
           board->data[(y + 1) * board->_n_col + (x + 1)]++;
       }
     }
@@ -523,7 +523,7 @@ print_board(const Board *board)
           case 8:
             tu_printw("%d", (int) board->data[y * board->_n_col + x]);
             break;
-          case BOMB:
+          case MINE:
             tu_addch('@');
             break;
         }
@@ -682,7 +682,7 @@ check_sweeped(const Board *board)
   for (y = 1; y <= board->n_row; y++) {
     for (x = 1; x <= board->n_col; x++) {
       /* Specified panel is not opened though the panel is not bomb */
-      if ((board->data[y * board->_n_col + x] & ~(UNCHECKED_MASK | FLAG_MASK)) != BOMB &&
+      if ((board->data[y * board->_n_col + x] & ~(UNCHECKED_MASK | FLAG_MASK)) != MINE &&
           (board->data[y * board->_n_col + x] & (UNCHECKED_MASK | FLAG_MASK))) {
         return FALSE;
       }
