@@ -51,9 +51,9 @@ endif
 
 
 .PHONY: all
-all: $(TARGET)
+all: $(TERMUTIL_LIBS_DIR)/libtermutil.a $(TARGET)
 
-$(TARGET): $(OBJ) $(TERMUTIL_LIBS_DIR)/libtermutil.a
+$(TARGET): $(OBJ)
 
 $(OBJ): $(SRC)
 
