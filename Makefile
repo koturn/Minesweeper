@@ -64,6 +64,11 @@ $(TERMUTIL_LIBS_DIR)/libtermutil.a:
 	$(MAKE) -C $(TERMUTIL_DIR)
 
 
+.PHONY: test
+test:
+	./$(TARGET) -h
+
+
 .PHONY: clean
 clean:
 	$(RM) $(TARGET) $(OBJ)

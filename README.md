@@ -1,6 +1,8 @@
 Minesweeper
 ===========
 
+[![Build Status](https://travis-ci.org/koturn/Minesweeper.png)](https://travis-ci.org/koturn/Minesweeper)
+
 Minesweeper written in C-language
 
 
