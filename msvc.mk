@@ -9,7 +9,7 @@ GETOPT_INCS       = /Igetopt/include/
 TERMUTIL_DIR        = TermUtil
 TERMUTIL_REPOSITORY = https://github.com/koturn/$(TERMUTIL_DIR).git
 TERMUTIL_LIBS_DIR   = $(TERMUTIL_DIR)/lib
-TERMUTIL_LIB        = termutil.lib
+TERMUTIL_LIB        = termutil$(DBG_SUFFIX).lib
 TERMUTIL_LDLIBS     = /libpath:$(TERMUTIL_LIBS_DIR) $(TERMUTIL_LIB)
 TERMUTIL_INCS       = /Itermutil/include/
 
@@ -73,7 +73,7 @@ $(GETOPT_LIBS_DIR)/$(GETOPT_LIB):
 	cd $(GETOPT_DIR)  &  $(MAKE) /f $(MAKEFILE)  &  cd $(MAKEDIR)
 
 $(TERMUTIL_LIBS_DIR)/$(TERMUTIL_LIB):
-	@if not exist $(@D)\NUL \
+	@if not exist $(@D)/NUL \
 		$(GIT) clone $(TERMUTIL_REPOSITORY)
 	cd $(TERMUTIL_DIR)  &  $(MAKE) /f $(MAKEFILE)  &  cd $(MAKEDIR)
 
