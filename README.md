@@ -5,6 +5,8 @@ Minesweeper
 
 Minesweeper written in C-language
 
+![minesweeper.gif](https://raw.githubusercontent.com/wiki/koturn/Minesweeper/image/minesweeper.gif)
+
 
 ## Usage
 
